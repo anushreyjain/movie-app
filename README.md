@@ -24,8 +24,8 @@ Follow these instructions to set up and run the project on your local machine.
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/movie-explorer-app.git
-   cd movie-explorer-app
+   git clone https://github.com/anushreyjain/movie-app.git
+   cd movie-app
 
 2. **Install dependencies**:
     ```bash
@@ -65,7 +65,7 @@ Follow these instructions to set up and run the project on your local machine.
 
 ## 📂 Project Structure
 ```
-movie-explorer-app/
+movie-app/
 ├── public/             # Public assets like images and favicon
 ├── src/                # Source code for the app
 │   ├── components/     # Reusable components (Accordion, MovieList, MovieDetails)
