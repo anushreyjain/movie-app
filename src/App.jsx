@@ -1,4 +1,4 @@
-import MovieList from "./Components/MobieList";
+import MovieList from "./Components/MovieList";
 
 const App = () => {
   return (

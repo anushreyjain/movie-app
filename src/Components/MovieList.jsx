@@ -10,9 +10,10 @@ const MovieList = () => {
   // State variables to manage movie list, search query, pagination, loading, error, and end of results
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("batman");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
   const [expandedMovie, setExpandedMovie] = useState(null);
   const [isEndReached, setIsEndReached] = useState(false);
 
@@ -82,15 +83,29 @@ const MovieList = () => {
   }, [page, query]);
 
   /**
-   * Updates the search query and resets pagination and movies list.
+   * Debounced function to update the query after a delay.
+   */
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      if (searchTerm === "") {
+        setQuery("batman"); // Reset to default search if the search bar is cleared
+      } else {
+        setQuery(searchTerm);
+      }
+      setPage(1);
+      setIsEndReached(false);
+    }, 300); // 300ms debounce delay
+    return () => clearTimeout(handler);
+  }, [searchTerm]);
+
+  /**
+   * Updates the search term state to apply debounce on query.
    * @param {Event} e - The input event.
    */
   const handleSearch = (e) => {
-    setQuery(e.target.value);
-    setMovies([]);
-    setPage(1);
-    setIsEndReached(false);
+    setSearchTerm(e.target.value);
   };
+
 
   /**
    * Toggles the expanded state of a movie in the accordion.
@@ -110,7 +125,7 @@ const MovieList = () => {
           id="search-movie"
           type="text"
           placeholder="Search movies..."
-          value={query}
+          value={searchTerm}
           onChange={handleSearch}
           aria-label="Search movies by title"
           className="w-full p-2 my-2.5 border border-neutral-300 rounded-md outline-none focus:border-neutral-400"
