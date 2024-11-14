@@ -118,8 +118,8 @@ const MovieList = () => {
   return (
     <div className="max-w-[90rem] w-full flex flex-col justify-center px-4 2xl:px-2">
       <div className="pt-5 pb-6 lg:pb-10">
-        <label htmlFor="search-movie" className="font-semibold">
-          Search Movie
+        <label htmlFor="search-movie" className="font-semibold flex gap-2">
+          Search Movie <span className="hidden lg:block font-normal">(Press TAB to search)</span>
         </label>
         <input
           id="search-movie"
