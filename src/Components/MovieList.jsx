@@ -47,7 +47,14 @@ const MovieList = () => {
         setIsEndReached(fetchedMovies.length < 10);
       } else {
         if (reset) setMovies([]);
-        setError(response.data.Error || "Unable to fetch movies.");
+        // Check for "Too many results" error and set custom error message
+        if (response.data.Error === "Too many results.") {
+          setError(
+            "Please enter more characters in the search box to get the results."
+          );
+        } else {
+          setError(response.data.Error || "Unable to fetch movies.");
+        }
         setIsEndReached(true);
       }
     } catch (err) {
@@ -106,7 +113,6 @@ const MovieList = () => {
     setSearchTerm(e.target.value);
   };
 
-
   /**
    * Toggles the expanded state of a movie in the accordion.
    * @param {string} movieId - The IMDB ID of the movie to toggle.
@@ -119,7 +125,10 @@ const MovieList = () => {
     <div className="max-w-[90rem] w-full flex flex-col justify-center px-4 2xl:px-2">
       <div className="pt-5 pb-6 lg:pb-10">
         <label htmlFor="search-movie" className="font-semibold flex gap-2">
-          Search Movie <span className="hidden lg:block font-normal">(Press TAB to search)</span>
+          Search Movie{" "}
+          <span className="hidden lg:block font-normal">
+            (Press TAB to search)
+          </span>
         </label>
         <input
           id="search-movie"
